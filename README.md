@@ -274,6 +274,7 @@ $ ls -F | grep /
 ~~~
 
 ## History
+* version 0.0.3 : Fix typo in gemspec.
 * version 0.0.2 : Fix typo and change public interface tommorow to tomorrow.
 * version 0.0.1 : First release.
 
