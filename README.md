@@ -1,6 +1,7 @@
 # Defoker
 
 [![Build Status](https://travis-ci.org/tbpgr/defoker.png?branch=master)](https://travis-ci.org/tbpgr/defoker)
+[![Coverage Status](https://coveralls.io/repos/tbpgr/defoker/badge.png)](https://coveralls.io/r/tbpgr/defoker)
 
 Defoker is date/month/year base format named folder generator.
 Defoker = DatE format FOlder maKER.

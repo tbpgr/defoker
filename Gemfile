@@ -9,9 +9,10 @@ gem "activemodel", "~> 4.0.2"
 gem "tudu", "~> 0.0.4"
 
 group :doc do
-  gem "yard", "~> 0.0.4"
+  gem "yard"
 end
 
 group :test do
+  gem 'coveralls', require: false
   gem "timecop"
 end
