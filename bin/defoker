@@ -1,0 +1,117 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require "defoker_core"
+require "defoker/version"
+require "thor"
+require "fileutils"
+
+module Defoker
+  #= Defoker CLI
+  class CLI < Thor
+    class_option :help, :type => :boolean, :aliases => '-h', :desc => 'help message.'
+    class_option :version, :type => :boolean, :desc => 'version'
+
+    option :additional, aliases: 'a'
+    desc "today", "create today folder. ex) 20140912, 20140912_hoge"
+    def today
+      defoker_core_single_caller(:today)
+    end
+
+    option :additional, aliases: 'a'
+    desc "tommorow", "create tommorow folder. ex) 20140913, 20140913_hoge"
+    def tommorow
+      defoker_core_single_caller(:tommorow)
+    end
+
+    option :additional, aliases: 'a'
+    desc "yesterday", "create yesterday folder. ex) 20140911, 20140911_hoge"
+    def yesterday
+      defoker_core_single_caller(:yesterday)
+    end
+
+    option :count, aliases: 'c'
+    option :additional, aliases: 'a'
+    desc "days", "create day folder list. ex) ['20140909','20140910','20140911','20140912'], ['20140909_hoge','20140910_hoge','20140911_hoge','20140912_hoge']"
+    def days(date)
+      defoker_core_multi_caller(date, :days)
+    end
+
+    option :additional, aliases: 'a'
+    desc "this_month", "create this_month folder. ex) 201409, 201409_hoge"
+    def this_month
+      defoker_core_single_caller(:this_month)
+    end
+
+    option :additional, aliases: 'a'
+    desc "next_month", "create next_month folder. ex) 201410, 201410_hoge"
+    def next_month
+      defoker_core_single_caller(:next_month)
+    end
+
+    option :additional, aliases: 'a'
+    desc "previous_month", "create previous_month folder. ex) 201410, 201410_hoge"
+    def previous_month
+      defoker_core_single_caller(:previous_month)
+    end
+
+    option :count, aliases: 'c'
+    option :additional, aliases: 'a'
+    desc "months", "create month folder list. ex) ['201410','201411','201412','201501'], ['201410_hoge','201411_hoge','201412_hoge','201501_hoge']"
+    def months(date)
+      defoker_core_multi_caller(date, :months)
+    end
+
+    option :additional, aliases: 'a'
+    desc "this_year", "create this_year folder. ex) 2014, 2014_hoge"
+    def this_year
+      defoker_core_single_caller(:this_year)
+    end
+
+    option :additional, aliases: 'a'
+    desc "next_year", "create next_year folder. ex) 2015, 2015_hoge"
+    def next_year
+      defoker_core_single_caller(:next_year)
+    end
+
+    option :additional, aliases: 'a'
+    desc "previous_year", "create previous_year folder. ex) 2013, 2013_hoge"
+    def previous_year
+      defoker_core_single_caller(:previous_year)
+    end
+
+    option :count, aliases: 'c'
+    option :additional, aliases: 'a'
+    desc "years", "create year folder list. ex) ['2014','2015','2016','2017'], ['2014_hoge','2015_hoge','2016_hoge','2017_hoge']"
+    def years(date)
+      defoker_core_multi_caller(date, :years)
+    end
+
+    desc "version", "version"
+    def version
+      p Defoker::VERSION
+    end
+
+    private
+    def defoker_core_single_caller(method_name)
+      additional = options[:additional] ? options[:additional] : ''
+      dir = Defoker::Core.new.send(method_name, additional: additional)
+      FileUtils.mkdir_p(dir)
+      exit(true)
+    rescue
+      exit(false)
+    end
+
+    def defoker_core_multi_caller(date, method_name)
+      count = options[:count] ? options[:count].to_i : 3
+      additional = options[:additional] ? options[:additional] : ''
+      dirs = Defoker::Core.new.send(method_name, date, count: count, additional: additional)
+      FileUtils.mkdir_p(dirs)
+      exit(true)
+    rescue
+      exit(false)
+    end
+  end
+end
+
+Defoker::CLI.start(ARGV)
