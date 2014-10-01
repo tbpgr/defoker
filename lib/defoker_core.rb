@@ -15,11 +15,11 @@ module Defoker
       DateBaseName.new.to_yyyymmdd(Date.today, additional: additional)
     end
 
-    # Get tommorow folder name
+    # Get tomorrow folder name
     #
     # @param [String] additional additional name
-    # @return [String] tommorow folder name
-    def tommorow(additional: '')
+    # @return [String] tomorrow folder name
+    def tomorrow(additional: '')
       DateBaseName.new.to_yyyymmdd(Date.today + 1, additional: additional)
     end
 
