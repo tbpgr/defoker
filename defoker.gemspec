@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Defoker::VERSION
   spec.authors       = ['tbpgr']
   spec.email         = ['tbpgr@tbpgr.jp']
-  spec.summary       = %q(Create variaous kind of date-base format named folders.)
-  spec.description   = %q(Create variaous kind of date-base format named folders.)
+  spec.summary       = %q(Create various kind of date-base format named folders.)
+  spec.description   = %q(Create various kind of date-base format named folders.)
   spec.homepage      = 'https://github.com/tbpgr/defoker'
   spec.license       = 'MIT'
 
