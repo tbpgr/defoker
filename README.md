@@ -1,10 +1,16 @@
 # Defoker
 
+[![Build Status](https://travis-ci.org/tbpgr/defoker.png?branch=master)](https://travis-ci.org/tbpgr/defoker)
+
 Defoker is date/month/year base format named folder generator.
 Defoker = DatE format FOlder maKER.
 
 ## Demo
 ![defoker demo](./images/defoker.gif)
+
+## Target Versions
+* Ruby 2.0
+* Ruby 2.1
 
 ## Installation
 
