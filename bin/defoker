@@ -19,9 +19,9 @@ module Defoker
     end
 
     option :additional, aliases: 'a'
-    desc 'tommorow', 'create tommorow folder. ex) 20140913, 20140913_hoge'
-    def tommorow
-      defoker_core_single_caller(:tommorow)
+    desc 'tomorrow', 'create tomorrow folder. ex) 20140913, 20140913_hoge'
+    def tomorrow
+      defoker_core_single_caller(:tomorrow)
     end
 
     option :additional, aliases: 'a'

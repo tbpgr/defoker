@@ -55,7 +55,7 @@ describe Defoker::Core do
     end
   end
 
-  context :tommorow do
+  context :tomorrow do
     cases = [
       {
         case_no: 1,
@@ -87,7 +87,7 @@ describe Defoker::Core do
           Timecop.travel(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.tommorow(additional: c[:additional])
+          actual = defoker_core.tomorrow(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])

@@ -55,12 +55,12 @@ $ ls -F | grep /
 20141001_hoge/
 ~~~
 
-### tommorow
+### tomorrow
 * no additional text
 
 ~~~bash
 # execute at 2014/10/01
-$ defoker tommorow
+$ defoker tomorrow
 $ ls -F | grep /
 20141002/
 ~~~
@@ -69,7 +69,7 @@ $ ls -F | grep /
 
 ~~~bash
 # execute at 2014/10/01
-$ defoker tommorow -a hoge
+$ defoker tomorrow -a hoge
 $ ls -F | grep /
 20141002_hoge/
 ~~~
@@ -274,6 +274,7 @@ $ ls -F | grep /
 ~~~
 
 ## History
+* version 0.0.2 : Fix typo and change public interface tommorow to tomorrow.
 * version 0.0.1 : First release.
 
 ## Contributing
