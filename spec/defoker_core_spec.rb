@@ -1,28 +1,28 @@
 # encoding: utf-8
-require "spec_helper"
-require "defoker_core"
-require "timecop"
+require 'spec_helper'
+require 'defoker_core'
+require 'timecop'
 
 describe Defoker::Core do
   context :today do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "20140901"
+        additional: '',
+        expected: '20140901'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "20140901_hoge"
+        additional: 'hoge',
+        expected: '20140901_hoge'
       }
     ]
 
@@ -59,21 +59,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "20140902"
+        additional: '',
+        expected: '20140902'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "20140902_hoge"
+        additional: 'hoge',
+        expected: '20140902_hoge'
       }
     ]
 
@@ -110,21 +110,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "20140831"
+        additional: '',
+        expected: '20140831'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "20140831_hoge"
+        additional: 'hoge',
+        expected: '20140831_hoge'
       }
     ]
 
@@ -161,19 +161,19 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
-        date: "20140909",
+        case_title: 'no additional case',
+        date: '20140909',
         count: 4,
-        additional: "",
-        expected: ["20140909","20140910","20140911","20140912"]
+        additional: '',
+        expected: %w(20140909 20140910 20140911 20140912)
       },
       {
         case_no: 2,
-        case_title: "with additional case",
-        date: "20140909",
+        case_title: 'with additional case',
+        date: '20140909',
         count: 4,
-        additional: "hoge",
-        expected: ["20140909_hoge", "20140910_hoge", "20140911_hoge", "20140912_hoge"]
+        additional: 'hoge',
+        expected: %w(20140909_hoge 20140910_hoge 20140911_hoge 20140912_hoge)
       }
     ]
 
@@ -209,21 +209,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "201409"
+        additional: '',
+        expected: '201409'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "201409_hoge"
+        additional: 'hoge',
+        expected: '201409_hoge'
       }
     ]
 
@@ -260,21 +260,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "201410"
+        additional: '',
+        expected: '201410'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "201410_hoge"
+        additional: 'hoge',
+        expected: '201410_hoge'
       }
     ]
 
@@ -311,21 +311,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "201408"
+        additional: '',
+        expected: '201408'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "201408_hoge"
+        additional: 'hoge',
+        expected: '201408_hoge'
       }
     ]
 
@@ -362,19 +362,19 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
-        month: "201410",
+        case_title: 'no additional case',
+        month: '201410',
         count: 4,
-        additional: "",
-        expected: ["201410","201411","201412","201501"]
+        additional: '',
+        expected: %w(201410 201411 201412 201501)
       },
       {
         case_no: 2,
-        case_title: "with additional case",
-        month: "201410",
+        case_title: 'with additional case',
+        month: '201410',
         count: 4,
-        additional: "hoge",
-        expected: ["201410_hoge","201411_hoge","201412_hoge","201501_hoge"]
+        additional: 'hoge',
+        expected: %w(201410_hoge 201411_hoge 201412_hoge 201501_hoge)
       }
     ]
 
@@ -410,21 +410,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "2014"
+        additional: '',
+        expected: '2014'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "2014_hoge"
+        additional: 'hoge',
+        expected: '2014_hoge'
       }
     ]
 
@@ -461,21 +461,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "2015"
+        additional: '',
+        expected: '2015'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "2015_hoge"
+        additional: 'hoge',
+        expected: '2015_hoge'
       }
     ]
 
@@ -512,21 +512,21 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
+        case_title: 'no additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "",
-        expected: "2013"
+        additional: '',
+        expected: '2013'
       },
       {
         case_no: 2,
-        case_title: "with additional case",
+        case_title: 'with additional case',
         dummy_year: 2014,
         dummy_month: 9,
         dummy_day: 1,
-        additional: "hoge",
-        expected: "2013_hoge"
+        additional: 'hoge',
+        expected: '2013_hoge'
       }
     ]
 
@@ -563,19 +563,19 @@ describe Defoker::Core do
     cases = [
       {
         case_no: 1,
-        case_title: "no additional case",
-        year: "2014",
+        case_title: 'no additional case',
+        year: '2014',
         count: 4,
-        additional: "",
-        expected: ["2014","2015","2016","2017"]
+        additional: '',
+        expected: %w(2014 2015 2016 2017)
       },
       {
         case_no: 2,
-        case_title: "with additional case",
-        year: "2014",
+        case_title: 'with additional case',
+        year: '2014',
         count: 4,
-        additional: "hoge",
-        expected: ["2014_hoge","2015_hoge","2016_hoge","2017_hoge"]
+        additional: 'hoge',
+        expected: %w(2014_hoge 2015_hoge 2016_hoge 2017_hoge)
       }
     ]
 
