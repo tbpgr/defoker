@@ -273,7 +273,74 @@ $ ls -F | grep /
 2017_hoge/
 ~~~
 
+### rule-output
+* generate Defokerfile template
+
+~~~
+$ defoker init
+$ cat Defokerfile
+# type is required.
+# you can choose type form...
+# [:today | :tomorrow | :yesterday | :this_month | :next_month | :previous_month | :this_year | :previous_year | :next_month]
+# example
+# type :this_month
+type :today
+# base is optional.
+# example
+# base 'ruby'
+base ''
+~~~
+
+* execute by default Defokerfile
+
+~~~
+# execute at 2014/10/01
+$ defoker rule
+$ ls -F | grep /
+20141001/
+$ defoker rule -a hoge
+$ ls -F | grep /
+20141001_hoge/
+
+# execute at 2014/10/02
+$ defoker rule
+$ ls -F | grep /
+20141002/
+$ defoker rule -a hoge
+$ ls -F | grep /
+20141002_hoge/
+~~~
+
+* edit Defokerfile.(type = previous_month, base = monthly_report)
+
+~~~
+$ cat Defokerfile
+type :previous_month
+base 'monthly_report'
+~~~
+
+* execute by edited Defokerfile.
+
+~~~
+# execute at 2014/10
+$ defoker rule
+$ ls -F | grep /
+201409_monthly_report/
+$ defoker rule -a hoge
+$ ls -F | grep /
+201409_monthly_report_hoge/
+
+# execute at 2014/11
+$ defoker rule
+$ ls -F | grep /
+201410_monthly_report/
+$ defoker rule -a hoge
+$ ls -F | grep /
+201410_monthly_report_hoge/
+~~~
+
 ## History
+* version 0.0.4 : Add init/rule command for rule-output.
 * version 0.0.3 : Fix typo in gemspec.
 * version 0.0.2 : Fix typo and change public interface tommorow to tomorrow.
 * version 0.0.1 : First release.
