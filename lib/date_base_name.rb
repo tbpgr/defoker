@@ -19,7 +19,7 @@ module Defoker
     #     If you want to get only date, you can omit this option.
     # @return [String] date-based formated name
     #
-    def to_yyyymmdd(date, additional: '')
+    def self.to_yyyymmdd(date, additional: '')
       DateBaseNameValidators.validate_date(date)
       v = date.strftime('%Y%m%d')
       return v if additional.empty?
@@ -45,7 +45,7 @@ module Defoker
     # @param [String] additional additional text.
     #     If you want count get only date, you can omit this option.
     # @return [Array(String)] date-based formated names
-    def to_yyyymmdd_list(day, count: nil, additional: '')
+    def self.to_yyyymmdd_list(day, count: nil, additional: '')
       DateBaseNameValidators.validate_date(day)
       count.times.with_object([]) do |i, memo|
         memo << to_yyyymmdd(day + i, additional: additional)
@@ -66,7 +66,7 @@ module Defoker
     #     If you want to get only month, you can omit this option.
     # @return [String] month-based formated name
     #
-    def to_yyyymm(month, additional: '')
+    def self.to_yyyymm(month, additional: '')
       DateBaseNameValidators.validate_date(month)
       v = month.strftime('%Y%m')
       return v if additional.empty?
@@ -92,7 +92,7 @@ module Defoker
     # @param [String] additional additional text.
     #     If you want to get only month, you can omit this option.
     # @return [Array(String)] month-based formated names
-    def to_yyyymm_list(month, count: 3, additional: '')
+    def self.to_yyyymm_list(month, count: 3, additional: '')
       DateBaseNameValidators.validate_date(month)
       count.times.with_object([]) do |i, memo|
         memo << to_yyyymm(month >> i, additional: additional)
@@ -113,7 +113,7 @@ module Defoker
     #     If you want to get only year, you can omit this option.
     # @return [String] year-based formated name
     #
-    def to_yyyy(year, additional: '')
+    def self.to_yyyy(year, additional: '')
       DateBaseNameValidators.validate_date(year)
       v = year.strftime('%Y')
       return v if additional.empty?
@@ -139,7 +139,7 @@ module Defoker
     # @param [String] additional additional text.
     #     If you want to get only year, you can omit this option.
     # @return [Array(String)] year-based formated names
-    def to_yyyy_list(year, count: 3, additional: '')
+    def self.to_yyyy_list(year, count: 3, additional: '')
       DateBaseNameValidators.validate_date(year)
       count.times.with_object([]) do |i, memo|
         memo << to_yyyy(year >> (i * 12), additional: additional)

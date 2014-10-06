@@ -62,18 +62,18 @@ describe Defoker::DateBaseName do
           case_before c
 
           # -- given --
-          defoker = Defoker::DateBaseName.new
+          # nothing
 
           # -- when --
           actual =
             if c[:additional]
-              defoker.to_yyyymmdd(c[:date], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyymmdd(c[:date], additional: c[:additional])
             else
               if c[:expect_error]
-                expect  { defoker.to_yyyymmdd(c[:date]) }.to raise_error(ArgumentError)
+                expect  { Defoker::DateBaseName.to_yyyymmdd(c[:date]) }.to raise_error(ArgumentError)
                 next
               end
-              defoker.to_yyyymmdd(c[:date])
+              Defoker::DateBaseName.to_yyyymmdd(c[:date])
             end
 
           # -- then --
@@ -131,22 +131,22 @@ describe Defoker::DateBaseName do
           case_before c
 
           # -- given --
-          defoker = Defoker::DateBaseName.new
+          # nothing
 
           # -- when --
           actual =
             if c[:count] && c[:additional]
-              defoker.to_yyyymmdd_list(c[:day], count: c[:count], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyymmdd_list(c[:day], count: c[:count], additional: c[:additional])
             elsif c[:count]
-              defoker.to_yyyymmdd_list(c[:day], count: c[:count])
+              Defoker::DateBaseName.to_yyyymmdd_list(c[:day], count: c[:count])
             elsif c[:additional]
-              defoker.to_yyyymmdd_list(c[:day], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyymmdd_list(c[:day], additional: c[:additional])
             else
               if c[:expect_error]
-                expect  { defoker.to_yyyymmdd_list(c[:day]) }.to raise_error(ArgumentError)
+                expect  { Defoker::DateBaseName.to_yyyymmdd_list(c[:day]) }.to raise_error(ArgumentError)
                 next
               end
-              defoker.to_yyyymmdd_list(c[:day])
+              Defoker::DateBaseName.to_yyyymmdd_list(c[:day])
             end
 
           # -- then --
@@ -217,18 +217,18 @@ describe Defoker::DateBaseName do
           case_before c
 
           # -- given --
-          defoker = Defoker::DateBaseName.new
+          # nothing
 
           # -- when --
           actual =
             if c[:additional]
-              defoker.to_yyyymm(c[:month], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyymm(c[:month], additional: c[:additional])
             else
               if c[:expect_error]
-                expect  { defoker.to_yyyymm(c[:month]) }.to raise_error(ArgumentError)
+                expect  { Defoker::DateBaseName.to_yyyymm(c[:month]) }.to raise_error(ArgumentError)
                 next
               end
-              defoker.to_yyyymm(c[:month])
+              Defoker::DateBaseName.to_yyyymm(c[:month])
             end
 
           # -- then --
@@ -292,22 +292,22 @@ describe Defoker::DateBaseName do
           case_before c
 
           # -- given --
-          defoker = Defoker::DateBaseName.new
+          # nothing
 
           # -- when --
           actual =
             if c[:count] && c[:additional]
-              defoker.to_yyyymm_list(c[:month], count: c[:count], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyymm_list(c[:month], count: c[:count], additional: c[:additional])
             elsif c[:count]
-              defoker.to_yyyymm_list(c[:month], count: c[:count])
+              Defoker::DateBaseName.to_yyyymm_list(c[:month], count: c[:count])
             elsif c[:additional]
-              defoker.to_yyyymm_list(c[:month], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyymm_list(c[:month], additional: c[:additional])
             else
               if c[:expect_error]
-                expect  { defoker.to_yyyymm_list(c[:month]) }.to raise_error(ArgumentError)
+                expect  { Defoker::DateBaseName.to_yyyymm_list(c[:month]) }.to raise_error(ArgumentError)
                 next
               end
-              defoker.to_yyyymm_list(c[:month])
+              Defoker::DateBaseName.to_yyyymm_list(c[:month])
             end
 
           # -- then --
@@ -370,18 +370,18 @@ describe Defoker::DateBaseName do
           case_before c
 
           # -- given --
-          defoker = Defoker::DateBaseName.new
+          # nothing
 
           # -- when --
           actual =
             if c[:additional]
-              defoker.to_yyyy(c[:year], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyy(c[:year], additional: c[:additional])
             else
               if c[:expect_error]
-                expect  { defoker.to_yyyy(c[:year]) }.to raise_error(ArgumentError)
+                expect  { Defoker::DateBaseName.to_yyyy(c[:year]) }.to raise_error(ArgumentError)
                 next
               end
-              defoker.to_yyyy(c[:year])
+              Defoker::DateBaseName.to_yyyy(c[:year])
             end
 
           # -- then --
@@ -445,22 +445,22 @@ describe Defoker::DateBaseName do
           case_before c
 
           # -- given --
-          defoker = Defoker::DateBaseName.new
+          # nothing
 
           # -- when --
           actual =
             if c[:count] && c[:additional]
-              defoker.to_yyyy_list(c[:year], count: c[:count], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyy_list(c[:year], count: c[:count], additional: c[:additional])
             elsif c[:count]
-              defoker.to_yyyy_list(c[:year], count: c[:count])
+              Defoker::DateBaseName.to_yyyy_list(c[:year], count: c[:count])
             elsif c[:additional]
-              defoker.to_yyyy_list(c[:year], additional: c[:additional])
+              Defoker::DateBaseName.to_yyyy_list(c[:year], additional: c[:additional])
             else
               if c[:expect_error]
-                expect  { defoker.to_yyyy_list(c[:year]) }.to raise_error(ArgumentError)
+                expect  { Defoker::DateBaseName.to_yyyy_list(c[:year]) }.to raise_error(ArgumentError)
                 next
               end
-              defoker.to_yyyy_list(c[:year])
+              Defoker::DateBaseName.to_yyyy_list(c[:year])
             end
 
           # -- then --

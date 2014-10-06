@@ -14,7 +14,7 @@ module Defoker
 
     desc 'init', 'generate Defokerfile template'
     def init
-      Defoker::Core.new.init
+      Defoker::Core.init
       exit(true)
     rescue
       exit(false)
@@ -109,7 +109,7 @@ module Defoker
     private
     def defoker_core_single_caller(method_name)
       additional = options[:additional] ? options[:additional] : ''
-      dir = Defoker::Core.new.send(method_name, additional: additional)
+      dir = Defoker::Core.send(method_name, additional: additional)
       FileUtils.mkdir_p(dir)
       exit(true)
     rescue
@@ -119,7 +119,7 @@ module Defoker
     def defoker_core_multi_caller(date, method_name)
       count = options[:count] ? options[:count].to_i : 3
       additional = options[:additional] ? options[:additional] : ''
-      dirs = Defoker::Core.new.send(method_name, date, count: count, additional: additional)
+      dirs = Defoker::Core.send(method_name, date, count: count, additional: additional)
       FileUtils.mkdir_p(dirs)
       exit(true)
     rescue
