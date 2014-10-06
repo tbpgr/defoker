@@ -12,6 +12,14 @@ module Defoker
     class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
     class_option :version, type: :boolean, desc: 'version'
 
+    desc 'init', 'generate Defokerfile template'
+    def init
+      Defoker::Core.new.init
+      exit(true)
+    rescue
+      exit(false)
+    end
+
     option :additional, aliases: 'a'
     desc 'today', 'create today folder. ex) 20140912, 20140912_hoge'
     def today
@@ -85,6 +93,12 @@ module Defoker
     desc 'years', "create year folder list. ex) ['2014','2015','2016','2017'], ['2014_hoge','2015_hoge','2016_hoge','2017_hoge']"
     def years(date)
       defoker_core_multi_caller(date, :years)
+    end
+
+    option :additional, aliases: 'a'
+    desc 'rule', 'create folder by Defokerfile''s rule.'
+    def rule
+      defoker_core_single_caller(:rule)
     end
 
     desc 'version', 'version'

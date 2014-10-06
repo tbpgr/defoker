@@ -4,6 +4,48 @@ require 'defoker_core'
 require 'timecop'
 
 describe Defoker::Core do
+  context :init do
+    DEFOKERFILE_TMP_DIR = 'tmp_init'
+    cases = [
+      {
+        case_no: 1,
+        case_title: 'valid new year mail',
+        expected: Defoker::DEFOKERFILE_TEMPLATE
+      }
+    ]
+
+    cases.each do |c|
+      it "|case_no=#{c[:case_no]}|case_title=#{c[:case_title]}" do
+        begin
+          case_before c
+
+          # -- given --
+          core = Defoker::Core.new
+
+          # -- when --
+          core.init
+
+          # -- then --
+          actual = File.read("./#{Defoker::DEFOKERFILE_PATH}")
+          expect(actual).to eq(c[:expected])
+        ensure
+          case_after c
+
+        end
+      end
+
+      def case_before(c) # rubocop:disable UnusedMethodArgument
+        Dir.mkdir(DEFOKERFILE_TMP_DIR) unless Dir.exist? DEFOKERFILE_TMP_DIR
+        Dir.chdir(DEFOKERFILE_TMP_DIR)
+      end
+
+      def case_after(c) # rubocop:disable UnusedMethodArgument
+        Dir.chdir('../')
+        FileUtils.rm_rf(DEFOKERFILE_TMP_DIR) if Dir.exist? DEFOKERFILE_TMP_DIR
+      end
+    end
+  end
+
   context :today do
     cases = [
       {
@@ -603,6 +645,107 @@ describe Defoker::Core do
 
       def case_after(c)
         # implement each case after
+      end
+    end
+  end
+
+  context :rule do
+    DEFOKER_RULE_TMP_DIR = 'tmp_rule'
+    DEFOKER_CASE1_INPUT = <<-EOS
+type :today
+base ""
+    EOS
+    DEFOKER_CASE2_INPUT = <<-EOS
+type :this_month
+base "hoge"
+    EOS
+
+    cases = [
+      {
+        case_no: 1,
+        case_title: 'default case',
+        dummy_year: 2014,
+        dummy_month: 9,
+        dummy_day: 1,
+        input: DEFOKER_CASE1_INPUT,
+        additional: '',
+        expected: '20140901'
+      },
+      {
+        case_no: 2,
+        case_title: 'default case with additional',
+        dummy_year: 2014,
+        dummy_month: 9,
+        dummy_day: 1,
+        input: DEFOKER_CASE1_INPUT,
+        additional: 'hoge',
+        expected: '20140901_hoge'
+      },
+      {
+        case_no: 3,
+        case_title: 'this_motth, hoge base case',
+        dummy_year: 2014,
+        dummy_month: 9,
+        dummy_day: 1,
+        input: DEFOKER_CASE2_INPUT,
+        additional: '',
+        expected: '201409_hoge'
+      },
+      {
+        case_no: 4,
+        case_title: 'this_motth, hoge base case with additional',
+        dummy_year: 2014,
+        dummy_month: 9,
+        dummy_day: 1,
+        input: DEFOKER_CASE2_INPUT,
+        additional: 'hige',
+        expected: '201409_hoge_hige'
+      },
+      {
+        case_no: 5,
+        case_title: 'no DEfokerfile case',
+        dummy_year: 2014,
+        dummy_month: 9,
+        dummy_day: 1,
+        input: '',
+        additional: '',
+        expect_error: true
+      }
+    ]
+
+    cases.each do |c|
+      it "|case_no=#{c[:case_no]}|case_title=#{c[:case_title]}" do
+        begin
+          case_before c
+
+          # -- given --
+          core = Defoker::Core.new
+          Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
+
+          # -- when --
+          if c[:expect_error]
+            expect  { core.rule(additional: c[:additional]) }.to raise_error(Defoker::DslNotExistError)
+            next
+          end
+          actual = core.rule(additional: c[:additional])
+
+          # -- then --
+          expect(actual).to eq(c[:expected])
+        ensure
+          case_after c
+        end
+      end
+
+      def case_before(c)
+        Dir.mkdir(DEFOKER_RULE_TMP_DIR) unless Dir.exist? DEFOKER_RULE_TMP_DIR
+        Dir.chdir(DEFOKER_RULE_TMP_DIR)
+        return if c[:input].empty?
+        File.open(Defoker::DEFOKERFILE_PATH, 'w:utf-8') { |f|f.print c[:input] }
+      end
+
+      def case_after(c) # rubocop:disable UnusedMethodArgument
+        Dir.chdir('../')
+        FileUtils.rm_rf(DEFOKER_RULE_TMP_DIR) if Dir.exist? DEFOKER_RULE_TMP_DIR
       end
     end
   end

@@ -1,12 +1,32 @@
 # encoding: utf-8
 require 'date_base_name'
 require 'date'
+require 'defoker_dsl'
+require 'defoker_dsl_model'
 
 module Defoker
   # rubocop disable LineLength
+  DEFOKERFILE_PATH = 'Defokerfile'
+  DEFOKERFILE_TEMPLATE = <<-EOS
+# type is required.
+# you can choose type form...
+# [:today | :tomorrow | :yesterday | :this_month | :next_month | :previous_month | :this_year | :previous_year | :next_month]
+# example
+# type :this_month
+type :today
+# base is optional.
+# example
+# base 'ruby'
+base ''
+  EOS
 
   # Defoker Core
   class Core
+    # Generate Defokerfile template
+    def init
+      File.open(DEFOKERFILE_PATH, 'w:utf-8') { |f|f.puts DEFOKERFILE_TEMPLATE }
+    end
+
     # Get today folder name
     #
     # @param [String] additional additional name
@@ -108,6 +128,31 @@ module Defoker
       year = Date.new(year[0..3].to_i)
       DateBaseName.new.to_yyyy_list(year, count: count, additional: additional)
     end
+
+    # Create folder by Defokerfile's rule.
+    #
+    # @param [String] additional additional name
+    # @return [String] folder name
+    def rule(additional: '')
+      dsl = read_dsl
+      base = dsl.defoker.base
+      adds = [base, additional].reject(&:empty?)
+      send(dsl.defoker.type, additional: adds.join('_'))
+    end
+
+    private
+
+    def read_dsl
+      dsl = Defoker::Dsl.new
+      unless File.exist?(DEFOKERFILE_PATH)
+        fail DslNotExistError, "#{DEFOKERFILE_PATH} not exist"
+      end
+      src = File.open(DEFOKERFILE_PATH, 'r:utf-8') { |f|f.read }
+      dsl.instance_eval(src)
+      dsl
+    end
   end
+
+  class DslNotExistError < StandardError; end
 end
 # rubocop enable LineLength
