@@ -9,7 +9,7 @@ module Defoker
   DEFOKERFILE_PATH = 'Defokerfile'
   DEFOKERFILE_TEMPLATE = <<-EOS
 # type is required.
-# you can choose type form...
+# you can choose type from...
 # [:today | :tomorrow | :yesterday | :this_month | :next_month | :previous_month | :this_year | :previous_year | :next_month]
 # example
 # type :this_month

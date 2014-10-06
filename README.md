@@ -280,7 +280,7 @@ $ ls -F | grep /
 $ defoker init
 $ cat Defokerfile
 # type is required.
-# you can choose type form...
+# you can choose type from...
 # [:today | :tomorrow | :yesterday | :this_month | :next_month | :previous_month | :this_year | :previous_year | :next_month]
 # example
 # type :this_month
@@ -340,6 +340,7 @@ $ ls -F | grep /
 ~~~
 
 ## History
+* version 0.0.5 : Fix typo in Defokerfile Template.
 * version 0.0.4 : Add init/rule command for rule-output.
 * version 0.0.3 : Fix typo in gemspec.
 * version 0.0.2 : Fix typo and change public interface tommorow to tomorrow.
