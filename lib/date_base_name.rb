@@ -156,10 +156,5 @@ module Defoker
       return if [Date, DateTime].include?(date.class)
       fail ArgumentError, "invalid argument type #{date.class}"
     end
-
-    def self.validate_date_range(date)
-      return if [Date, DateTime, Range].include?(date.class)
-      fail ArgumentError, "invalid argument type #{date.class}"
-    end
   end
 end
