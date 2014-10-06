@@ -100,6 +100,12 @@ module Defoker
       p Defoker::VERSION
     end
 
+    option :additional, aliases: 'a'
+    desc 'rule', 'create folder by Defokerfile''s rule.'
+    def rule
+      defoker_core_single_caller(:rule)
+    end
+
     private
     def defoker_core_single_caller(method_name)
       additional = options[:additional] ? options[:additional] : ''
