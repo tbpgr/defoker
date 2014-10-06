@@ -276,7 +276,7 @@ $ ls -F | grep /
 ### rule-output
 * generate Defokerfile template
 
-~~~
+~~~bash
 $ defoker init
 $ cat Defokerfile
 # type is required.
@@ -293,7 +293,7 @@ base ''
 
 * execute by default Defokerfile
 
-~~~
+~~~bash
 # execute at 2014/10/01
 $ defoker rule
 $ ls -F | grep /
@@ -313,7 +313,7 @@ $ ls -F | grep /
 
 * edit Defokerfile.(type = previous_month, base = monthly_report)
 
-~~~
+~~~bash
 $ cat Defokerfile
 type :previous_month
 base 'monthly_report'
@@ -321,7 +321,7 @@ base 'monthly_report'
 
 * execute by edited Defokerfile.
 
-~~~
+~~~bash
 # execute at 2014/10
 $ defoker rule
 $ ls -F | grep /
