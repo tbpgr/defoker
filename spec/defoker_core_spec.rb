@@ -20,10 +20,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          core = Defoker::Core.new
+          # nothing
 
           # -- when --
-          core.init
+          Defoker::Core.init
 
           # -- then --
           actual = File.read("./#{Defoker::DEFOKERFILE_PATH}")
@@ -74,11 +74,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.today(additional: c[:additional])
+          actual = Defoker::Core.today(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -125,11 +124,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.travel(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.tomorrow(additional: c[:additional])
+          actual = Defoker::Core.tomorrow(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -176,11 +174,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.travel(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.yesterday(additional: c[:additional])
+          actual = Defoker::Core.yesterday(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -225,10 +222,9 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
 
           # -- when --
-          actual = defoker_core.days(c[:date], count: c[:count], additional: c[:additional])
+          actual = Defoker::Core.days(c[:date], count: c[:count], additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -275,11 +271,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.this_month(additional: c[:additional])
+          actual = Defoker::Core.this_month(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -326,11 +321,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.next_month(additional: c[:additional])
+          actual = Defoker::Core.next_month(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -377,11 +371,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.previous_month(additional: c[:additional])
+          actual = Defoker::Core.previous_month(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -426,10 +419,9 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
 
           # -- when --
-          actual = defoker_core.months(c[:month], count: c[:count], additional: c[:additional])
+          actual = Defoker::Core.months(c[:month], count: c[:count], additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -476,11 +468,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.this_year(additional: c[:additional])
+          actual = Defoker::Core.this_year(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -527,11 +518,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.next_year(additional: c[:additional])
+          actual = Defoker::Core.next_year(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -578,11 +568,10 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
-          actual = defoker_core.previous_year(additional: c[:additional])
+          actual = Defoker::Core.previous_year(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -627,10 +616,9 @@ describe Defoker::Core do
           case_before c
 
           # -- given --
-          defoker_core = Defoker::Core.new
 
           # -- when --
-          actual = defoker_core.years(c[:year], count: c[:count], additional: c[:additional])
+          actual = Defoker::Core.years(c[:year], count: c[:count], additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
@@ -719,15 +707,15 @@ base "hoge"
           case_before c
 
           # -- given --
-          core = Defoker::Core.new
+          # nothing
           Timecop.freeze(Time.local(c[:dummy_year], c[:dummy_month], c[:dummy_day]))
 
           # -- when --
           if c[:expect_error]
-            expect  { core.rule(additional: c[:additional]) }.to raise_error(Defoker::DslNotExistError)
+            expect  { Defoker::Core.rule(additional: c[:additional]) }.to raise_error(Defoker::DslNotExistError)
             next
           end
-          actual = core.rule(additional: c[:additional])
+          actual = Defoker::Core.rule(additional: c[:additional])
 
           # -- then --
           expect(actual).to eq(c[:expected])
