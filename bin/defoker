@@ -95,15 +95,15 @@ module Defoker
       defoker_core_multi_caller(date, :years)
     end
 
-    desc 'version', 'version'
-    def version
-      p Defoker::VERSION
-    end
-
     option :additional, aliases: 'a'
     desc 'rule', 'create folder by Defokerfile''s rule.'
     def rule
       defoker_core_single_caller(:rule)
+    end
+
+    desc 'version', 'version'
+    def version
+      p Defoker::VERSION
     end
 
     private

@@ -136,8 +136,8 @@ base ''
     def rule(additional: '')
       dsl = read_dsl
       base = dsl.defoker.base
-      adds = base.empty? ? [additional] : [base, additional]
-      send(dsl.defoker.type, adds.join('_'))
+      adds = [base, additional].reject(&:empty?)
+      send(dsl.defoker.type, additional: adds.join('_'))
     end
 
     private
