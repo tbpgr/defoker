@@ -4,9 +4,27 @@ require 'date'
 
 module Defoker
   # rubocop disable LineLength
+  DEFOKERFILE_PATH = 'Defokerfile'
+  DEFOKERFILE_TEMPLATE = <<-EOS
+# type is required. 
+# you can choose type form...
+# [:today | :tomorrow | :yesterday | :this_month | :next_month | :previous_month | :this_year | :previous_year | :next_month]
+# example
+# type :this_month
+type :today
+# base is optional.
+# example
+# base 'ruby'
+base ''
+  EOS
 
   # Defoker Core
   class Core
+    # Generate Defokerfile template
+    def init
+      File.open(DEFOKERFILE_PATH, 'w:utf-8') { |f|f.puts DEFOKERFILE_TEMPLATE }
+    end
+
     # Get today folder name
     #
     # @param [String] additional additional name

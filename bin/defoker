@@ -12,6 +12,14 @@ module Defoker
     class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
     class_option :version, type: :boolean, desc: 'version'
 
+    desc 'init', 'generate Defokerfile template'
+    def init
+      Defoker::Core.new.init
+      exit(true)
+    rescue
+      exit(false)
+    end
+
     option :additional, aliases: 'a'
     desc 'today', 'create today folder. ex) 20140912, 20140912_hoge'
     def today
