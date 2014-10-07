@@ -657,7 +657,7 @@ base "hoge"
         dummy_day: 1,
         input: DEFOKER_CASE1_INPUT,
         additional: '',
-        expected: '20140901'
+        expected: ['20140901', nil]
       },
       {
         case_no: 2,
@@ -667,7 +667,7 @@ base "hoge"
         dummy_day: 1,
         input: DEFOKER_CASE1_INPUT,
         additional: 'hoge',
-        expected: '20140901_hoge'
+        expected: ['20140901_hoge', nil]
       },
       {
         case_no: 3,
@@ -677,7 +677,7 @@ base "hoge"
         dummy_day: 1,
         input: DEFOKER_CASE2_INPUT,
         additional: '',
-        expected: '201409_hoge'
+        expected: ['201409_hoge', nil]
       },
       {
         case_no: 4,
@@ -687,7 +687,7 @@ base "hoge"
         dummy_day: 1,
         input: DEFOKER_CASE2_INPUT,
         additional: 'hige',
-        expected: '201409_hoge_hige'
+        expected: ['201409_hoge_hige', nil]
       },
       {
         case_no: 5,

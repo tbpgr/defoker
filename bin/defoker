@@ -6,6 +6,7 @@ require 'defoker/version'
 require 'thor'
 require 'fileutils'
 
+# rubocop:disable ClassLength
 module Defoker
   # = Defoker CLI
   class CLI < Thor
@@ -98,7 +99,14 @@ module Defoker
     option :additional, aliases: 'a'
     desc 'rule', 'create folder by Defokerfile''s rule.'
     def rule
-      defoker_core_single_caller(:rule)
+      additional = options[:additional] ? options[:additional] : ''
+      dir, callback = Defoker::Core.rule(additional: additional)
+      FileUtils.mkdir_p(dir)
+      callback[dir] unless callback.nil?
+      exit(true)
+    rescue => e
+      STDERR.puts(e.backtrace)
+      exit(false)
     end
 
     desc 'version', 'version'
@@ -112,7 +120,8 @@ module Defoker
       dir = Defoker::Core.send(method_name, additional: additional)
       FileUtils.mkdir_p(dir)
       exit(true)
-    rescue
+    rescue => e
+      STDERR.puts(e.backtrace)
       exit(false)
     end
 
@@ -122,10 +131,12 @@ module Defoker
       dirs = Defoker::Core.send(method_name, date, count: count, additional: additional)
       FileUtils.mkdir_p(dirs)
       exit(true)
-    rescue
+    rescue => e
+      STDERR.puts(e.backtrace)
       exit(false)
     end
   end
 end
 
 Defoker::CLI.start(ARGV)
+# rubocop:enable ClassLength
