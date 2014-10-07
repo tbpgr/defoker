@@ -14,10 +14,22 @@ module Defoker
 # example
 # type :this_month
 type :today
+
 # base is optional.
 # example
 # base 'ruby'
 base ''
+
+# callback is ruby's callback(it will call after create folder).
+# Block parameter is foldername string.
+# If you want some action after create folder,
+# comment out following lines and edit your logic.
+
+# callback ->(dir) {
+#    p dir
+#    # create File in your dir
+#    File.open("\#{dir}/some_template_file.txt", "w:utf-8") { |e|e.puts 'some template'}
+# }
   EOS
 
   # Defoker Core
@@ -136,8 +148,10 @@ base ''
     def self.rule(additional: '')
       dsl = read_dsl
       base = dsl.defoker.base
+      callback = dsl.defoker.callback
       adds = [base, additional].reject(&:empty?)
-      send(dsl.defoker.type, additional: adds.join('_'))
+      dir = send(dsl.defoker.type, additional: adds.join('_'))
+      [dir, callback]
     end
 
     def self.read_dsl

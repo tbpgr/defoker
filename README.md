@@ -339,7 +339,42 @@ $ ls -F | grep /
 201410_monthly_report_hoge/
 ~~~
 
+* edit Defokerfile with callback.(type = previous_month, base = monthly_report)
+
+~~~bash
+$ cat Defokerfile
+type :previous_month
+base 'monthly_report'
+callback ->(dir) {
+  p dir
+  File.open("#{dir}/template.txt", 'w:utf-8') { |e|e.puts "template for #{dir}" }
+  File.open("#{dir}/template.rb'" 'w:utf-8') { |e|e.puts "puts '#{dir}'" }
+}
+
+$ tree
+# execute at 20141006
+$ defoker rule -a hige
+"20141006_hige"
+# execute at 20141007
+$ defoker rule -a hoge
+"20141007_hoge"
+# execute at 20141008
+$ defoker rule -a hage
+"20141008_hage"
+$ tree
+┣ 20141006_hige
+┃ ┣ template.rb
+┃ ┗ template.txt
+┣ 20141007_hoge
+┃ ┣ template.rb
+┃ ┗ template.txt
+┗ 20141008_hage
+  ┣ template.rb
+  ┗ template.txt
+~~~
+
 ## History
+* version 0.0.6 : Add callback in Defokerfile.
 * version 0.0.5 : Fix typo in Defokerfile Template.
 * version 0.0.4 : Add init/rule command for rule-output.
 * version 0.0.3 : Fix typo in gemspec.

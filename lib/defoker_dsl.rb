@@ -7,7 +7,7 @@ module Defoker
     attr_accessor :defoker
 
     # String Define
-    [:type, :base].each do |f|
+    [:type, :base, :callback].each do |f|
       define_method f do |value|
         @defoker.send("#{f}=", value)
       end
@@ -17,6 +17,7 @@ module Defoker
       @defoker = Defoker::DslModel.new
       @defoker.type = ''
       @defoker.base = ''
+      @defoker.callback = nil
     end
   end
 end

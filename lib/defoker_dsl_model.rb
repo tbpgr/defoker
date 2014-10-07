@@ -3,9 +3,11 @@
 module Defoker
   # DslModel
   class DslModel
-    # type command
+    # type
     attr_accessor :type
-    # base command
+    # base
     attr_accessor :base
+    # callback
+    attr_accessor :callback
   end
 end
