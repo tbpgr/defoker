@@ -373,7 +373,89 @@ $ tree
   ┗ template.txt
 ~~~
 
+### mv_month
+move daily folders to monthly folder.
+
+* Before move
+
+~~~bash
+$ tree
+┣ 20141006_hige
+┣ 20141007_hoge
+┣ 20141106_hige
+┣ 20141107_hoge
+┣ 20141206_hige
+┣ 20141207_hoge
+┣ 20150106_hige
+┣ 20150107_hoge
+┗ invalid_folder
+~~~
+
+* Excute mv_month
+
+~~~bash
+$ defoker mv_month
+$ tree
+┣ 201410
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┣ 201411
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┣ 201412
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┣ 201501
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┗ invalid_folder
+~~~
+
+### mv_year
+move monthly folders to yearly folder.
+
+* Before move
+
+~~~bash
+$ tree
+┣ 201410
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┣ 201411
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┣ 201412
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┣ 201501
+┃   ┣ 06_hige
+┃   ┗ 07_hoge
+┗ invalid_folder
+~~~
+
+* Excute mv_month
+
+~~~bash
+$ defoker mv_year
+┣ 2014
+┃  ┣ 10
+┃  ┃   ┣ 06_hige
+┃  ┃   ┗ 07_hoge
+┃  ┣ 11
+┃  ┃   ┣ 06_hige
+┃  ┃   ┗ 07_hoge
+┃  ┗ 12
+┃  　   ┣ 06_hige
+┃  　   ┗ 07_hoge
+┣ 2015
+┃  ┗ 01
+┃       ┣ 06_hige
+┃       ┗ 07_hoge
+┗ invalid_folder
+~~~
+
 ## History
+* version 0.0.7 : Add mv_month, mv_year commands.
 * version 0.0.6 : Add callback in Defokerfile.
 * version 0.0.5 : Fix typo in Defokerfile Template.
 * version 0.0.4 : Add init/rule command for rule-output.

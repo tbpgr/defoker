@@ -109,12 +109,31 @@ module Defoker
       exit(false)
     end
 
+    desc 'mv_month', 'move daily folders to monthly folder'
+    def mv_month
+      Defoker::Core.mv_month
+      exit(true)
+    rescue => e
+      STDERR.puts(e.backtrace)
+      exit(false)
+    end
+
+    desc 'mv_year', 'move monthly folders to yearly folder'
+    def mv_year
+      Defoker::Core.mv_year
+      exit(true)
+    rescue => e
+      STDERR.puts(e.backtrace)
+      exit(false)
+    end
+
     desc 'version', 'version'
     def version
       p Defoker::VERSION
     end
 
     private
+
     def defoker_core_single_caller(method_name)
       additional = options[:additional] ? options[:additional] : ''
       dir = Defoker::Core.send(method_name, additional: additional)

@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'date_base_name'
 require 'date'
+require 'pathname'
 require 'defoker_dsl'
 require 'defoker_dsl_model'
 
@@ -26,9 +27,9 @@ base ''
 # comment out following lines and edit your logic.
 
 # callback ->(dir) {
-#    p dir
-#    # create File in your dir
-#    File.open("\#{dir}/some_template_file.txt", "w:utf-8") { |e|e.puts 'some template'}
+#   p dir
+#   # create File in your dir
+#   File.open("\#{dir}/some_template_file.txt", "w:utf-8") { |e|e.puts 'some template'}
 # }
   EOS
 
@@ -152,6 +153,30 @@ base ''
       adds = [base, additional].reject(&:empty?)
       dir = send(dsl.defoker.type, additional: adds.join('_'))
       [dir, callback]
+    end
+
+    # Move YYYYMMDD_somename format folder to YYYYMM folder.
+    #
+    def self.mv_month
+      Dir.glob('*/').each do |dir|
+        next unless dir =~ %r(^[0-9]{8}(_.*)*/$)
+        month_dir = dir[0, 6]
+        FileUtils.mkdir_p(month_dir) unless Dir.exist?(month_dir)
+        day_dir = dir[6..-1]
+        FileUtils.mv(dir, File.join(month_dir, day_dir))
+      end
+    end
+
+    # Move YYYYMM_somename format folder to YYYY folder.
+    #
+    def self.mv_year
+      Dir.glob('*/').each do |dir|
+        next unless dir =~ %r(^[0-9]{6}(_.*)*/$)
+        year_dir = dir[0, 4]
+        FileUtils.mkdir_p(year_dir) unless Dir.exist?(year_dir)
+        month_dir = dir[4..-1]
+        FileUtils.mv(dir, File.join(year_dir, month_dir))
+      end
     end
 
     def self.read_dsl

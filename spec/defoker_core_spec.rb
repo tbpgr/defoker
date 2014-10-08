@@ -737,4 +737,126 @@ base "hoge"
       end
     end
   end
+
+  context :mv_month do
+    DEFOKER_MV_MONTH_TMP_DIR = 'tmp_mv_month'
+
+    cases = [
+      {
+        case_no: 1,
+        case_title: 'valid case',
+        setup_dirs: %w(20141006_hige 20141007_hoge 20141106_hige 20141107_hoge 20141206_hige 20141207_hoge 20150106_hige 20150107_hoge invalid_folder),
+        expected: [
+          '201410/06_hige',
+          '201410/07_hoge',
+          '201411/06_hige',
+          '201411/07_hoge',
+          '201412/06_hige',
+          '201412/07_hoge',
+          '201501/06_hige',
+          '201501/07_hoge',
+          'invalid_folder'
+        ]
+      }
+    ]
+
+    cases.each do |c|
+      it "|case_no=#{c[:case_no]}|case_title=#{c[:case_title]}" do
+        begin
+          case_before c
+
+          # -- given --
+          # nothing
+
+          # -- when --
+          Defoker::Core.mv_month
+
+          # -- then --
+          c[:expected].each do |dir|
+            existence = Dir.exist?(dir)
+            expect(existence).to be_true
+          end
+        ensure
+          case_after c
+        end
+      end
+
+      def case_before(c)
+        Dir.mkdir(DEFOKER_MV_MONTH_TMP_DIR) unless Dir.exist? DEFOKER_MV_MONTH_TMP_DIR
+        Dir.chdir(DEFOKER_MV_MONTH_TMP_DIR)
+        FileUtils.mkdir_p(c[:setup_dirs])
+      end
+
+      def case_after(c) # rubocop:disable UnusedMethodArgument
+        Dir.chdir('../')
+        FileUtils.rm_rf(DEFOKER_MV_MONTH_TMP_DIR) if Dir.exist? DEFOKER_MV_MONTH_TMP_DIR
+      end
+    end
+  end
+
+  context :mv_year do
+    DEFOKER_MV_YEAR_TMP_DIR = 'tmp_mv_year'
+
+    cases = [
+      {
+        case_no: 1,
+        case_title: 'valid case',
+        setup_dirs: %w(
+          201410/06_hige
+          201410/07_hoge
+          201411/06_hige
+          201411/07_hoge
+          201412/06_hige
+          201412/07_hoge
+          201501/06_hige
+          201501/07_hoge
+          invalid_folde
+        ),
+        expected: %w(
+          2014/10/06_hige
+          2014/10/07_hoge
+          2014/11/06_hige
+          2014/11/07_hoge
+          2014/12/06_hige
+          2014/12/07_hoge
+          2015/01/06_hige
+          2015/01/07_hoge
+          invalid_folde
+        )
+      }
+    ]
+
+    cases.each do |c|
+      it "|case_no=#{c[:case_no]}|case_title=#{c[:case_title]}" do
+        begin
+          case_before c
+
+          # -- given --
+          # nothing
+
+          # -- when --
+          Defoker::Core.mv_year
+
+          # -- then --
+          c[:expected].each do |dir|
+            existence = Dir.exist?(dir)
+            expect(existence).to be_true
+          end
+        ensure
+          case_after c
+        end
+      end
+
+      def case_before(c)
+        Dir.mkdir(DEFOKER_MV_YEAR_TMP_DIR) unless Dir.exist? DEFOKER_MV_YEAR_TMP_DIR
+        Dir.chdir(DEFOKER_MV_YEAR_TMP_DIR)
+        FileUtils.mkdir_p(c[:setup_dirs])
+      end
+
+      def case_after(c) # rubocop:disable UnusedMethodArgument
+        Dir.chdir('../')
+        FileUtils.rm_rf(DEFOKER_MV_YEAR_TMP_DIR) if Dir.exist? DEFOKER_MV_YEAR_TMP_DIR
+      end
+    end
+  end
 end
