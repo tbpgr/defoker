@@ -6,15 +6,17 @@ require 'defoker/version'
 require 'thor'
 require 'fileutils'
 
-# rubocop:disable ClassLength
+# rubocop:disable ClassLength, MethodLength
 module Defoker
   # = Defoker CLI
   class CLI < Thor
     class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
     class_option :version, type: :boolean, desc: 'version'
+    class_option :debug, type: :boolean, aliases: '-d', desc: 'debug mode'
 
     desc 'init', 'generate Defokerfile template'
     def init
+      setting_debug_mode
       Defoker::Core.init
       exit(true)
     rescue
@@ -24,18 +26,21 @@ module Defoker
     option :additional, aliases: 'a'
     desc 'today', 'create today folder. ex) 20140912, 20140912_hoge'
     def today
+      setting_debug_mode
       defoker_core_single_caller(:today)
     end
 
     option :additional, aliases: 'a'
     desc 'tomorrow', 'create tomorrow folder. ex) 20140913, 20140913_hoge'
     def tomorrow
+      setting_debug_mode
       defoker_core_single_caller(:tomorrow)
     end
 
     option :additional, aliases: 'a'
     desc 'yesterday', 'create yesterday folder. ex) 20140911, 20140911_hoge'
     def yesterday
+      setting_debug_mode
       defoker_core_single_caller(:yesterday)
     end
 
@@ -43,24 +48,28 @@ module Defoker
     option :additional, aliases: 'a'
     desc 'days', "create day folder list. ex) ['20140909','20140910','20140911','20140912'], ['20140909_hoge','20140910_hoge','20140911_hoge','20140912_hoge']"
     def days(date)
+      setting_debug_mode
       defoker_core_multi_caller(date, :days)
     end
 
     option :additional, aliases: 'a'
     desc 'this_month', 'create this_month folder. ex) 201409, 201409_hoge'
     def this_month
+      setting_debug_mode
       defoker_core_single_caller(:this_month)
     end
 
     option :additional, aliases: 'a'
     desc 'next_month', 'create next_month folder. ex) 201410, 201410_hoge'
     def next_month
+      setting_debug_mode
       defoker_core_single_caller(:next_month)
     end
 
     option :additional, aliases: 'a'
     desc 'previous_month', 'create previous_month folder. ex) 201410, 201410_hoge'
     def previous_month
+      setting_debug_mode
       defoker_core_single_caller(:previous_month)
     end
 
@@ -68,24 +77,28 @@ module Defoker
     option :additional, aliases: 'a'
     desc 'months', "create month folder list. ex) ['201410','201411','201412','201501'], ['201410_hoge','201411_hoge','201412_hoge','201501_hoge']"
     def months(date)
+      setting_debug_mode
       defoker_core_multi_caller(date, :months)
     end
 
     option :additional, aliases: 'a'
     desc 'this_year', 'create this_year folder. ex) 2014, 2014_hoge'
     def this_year
+      setting_debug_mode
       defoker_core_single_caller(:this_year)
     end
 
     option :additional, aliases: 'a'
     desc 'next_year', 'create next_year folder. ex) 2015, 2015_hoge'
     def next_year
+      setting_debug_mode
       defoker_core_single_caller(:next_year)
     end
 
     option :additional, aliases: 'a'
     desc 'previous_year', 'create previous_year folder. ex) 2013, 2013_hoge'
     def previous_year
+      setting_debug_mode
       defoker_core_single_caller(:previous_year)
     end
 
@@ -93,43 +106,68 @@ module Defoker
     option :additional, aliases: 'a'
     desc 'years', "create year folder list. ex) ['2014','2015','2016','2017'], ['2014_hoge','2015_hoge','2016_hoge','2017_hoge']"
     def years(date)
+      setting_debug_mode
       defoker_core_multi_caller(date, :years)
     end
 
     option :additional, aliases: 'a'
     desc 'rule', 'create folder by Defokerfile''s rule.'
     def rule
+      setting_debug_mode
       additional = options[:additional] ? options[:additional] : ''
       dir, callback = Defoker::Core.rule(additional: additional)
-      FileUtils.mkdir_p(dir)
+      FileUtils.mkdir_p(dir) unless File.exist?(dir)
       callback[dir] unless callback.nil?
       exit(true)
     rescue => e
-      STDERR.puts(e.backtrace)
+      output_error_if_debug_mode(e)
       exit(false)
     end
 
     desc 'mv_month', 'move daily folders to monthly folder'
     def mv_month
+      setting_debug_mode
       Defoker::Core.mv_month
       exit(true)
     rescue => e
-      STDERR.puts(e.backtrace)
+      output_error_if_debug_mode(e)
       exit(false)
     end
 
     desc 'mv_year', 'move monthly folders to yearly folder'
     def mv_year
+      setting_debug_mode
       Defoker::Core.mv_year
       exit(true)
     rescue => e
-      STDERR.puts(e.backtrace)
+      output_error_if_debug_mode(e)
       exit(false)
     end
 
     desc 'version', 'version'
     def version
-      p Defoker::VERSION
+      puts Defoker::VERSION
+    end
+
+    desc 'gem_info', 'gem_info'
+    def gem_info
+      print <<-EOS
+ ____        __       _
+|  _ \\  ___ / _| ___ | | _____ _ __
+| | | |/ _ \\ |_ / _ \\| |/ / _ \\ '__|
+| |_| |  __/  _| (_) |   <  __/ |
+|____/ \\___|_|  \\___/|_|\\_\\___|_|
+
+[gem name]
+defoker
+[version]
+#{Defoker::VERSION}
+[document url]
+https://github.com/tbpgr/defoker
+[RubyGems url]
+http://rubygems.org/gems/defoker
+      EOS
+      exit(true)
     end
 
     private
@@ -137,10 +175,10 @@ module Defoker
     def defoker_core_single_caller(method_name)
       additional = options[:additional] ? options[:additional] : ''
       dir = Defoker::Core.send(method_name, additional: additional)
-      FileUtils.mkdir_p(dir)
+      FileUtils.mkdir_p(dir) unless File.exist?(dir)
       exit(true)
     rescue => e
-      STDERR.puts(e.backtrace)
+      output_error_if_debug_mode(e)
       exit(false)
     end
 
@@ -148,14 +186,23 @@ module Defoker
       count = options[:count] ? options[:count].to_i : 3
       additional = options[:additional] ? options[:additional] : ''
       dirs = Defoker::Core.send(method_name, date, count: count, additional: additional)
-      FileUtils.mkdir_p(dirs)
+      dirs.each { |dir|FileUtils.mkdir_p(dir) unless File.exist?(dir) }
       exit(true)
     rescue => e
-      STDERR.puts(e.backtrace)
+      output_error_if_debug_mode(e)
       exit(false)
+    end
+
+    def setting_debug_mode
+      $DEBUG = options[:debug]
+    end
+
+    def output_error_if_debug_mode(e)
+      return unless options[:debug]
+      STDERR.puts(e.backtrace)
     end
   end
 end
 
 Defoker::CLI.start(ARGV)
-# rubocop:enable ClassLength
+# rubocop:enable ClassLength, MethodLength

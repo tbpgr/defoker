@@ -454,7 +454,29 @@ $ defoker mv_year
 ┗ invalid_folder
 ~~~
 
+### gem_info
+show gem information.
+
+~~~bash
+$ defoker gem_info
+ ____        __       _
+|  _ \  ___ / _| ___ | | _____ _ __
+| | | |/ _ \ |_ / _ \| |/ / _ \ '__|
+| |_| |  __/  _| (_) |   <  __/ |
+|____/ \___|_|  \___/|_|\_\___|_|
+
+[gem name]
+defoker
+[version]
+0.0.8
+[document url]
+https://github.com/tbpgr/defoker
+[RubyGems url]
+http://rubygems.org/gems/defoker
+~~~
+
 ## History
+* version 0.0.8 : Add gem_info command. Add debug option.
 * version 0.0.7 : Add mv_month, mv_year commands.
 * version 0.0.6 : Add callback in Defokerfile.
 * version 0.0.5 : Fix typo in Defokerfile Template.
